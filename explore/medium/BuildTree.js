@@ -11,24 +11,32 @@
  * @return {TreeNode}
  */
 const buildTree = function(preorder, inorder) {
-	return helper(0, 0, inorder.length - 1, preorder, inorder);
-};
+	// Hash the index of the inorder numbers.
+	let inorderHash = {};
 
-const helper = function(preStart, inStart, inEnd, preorder, inorder) {
-	if (preStart > preorder.length - 1 || inStart > inEnd) return null;
+	inorder.forEach((num, index) => {
+		// Do I know that all the numbers are unique?
+		inorderHash[num] = index;
+	});
 
-	let root = new TreeNode(preorder[preStart]);
-	let rootIndex = 0;
-	for (let i = inStart; i <= inEnd; i++) {
-		if (inorder[i] === root.val) {
-			rootIndex = i;
-			break;
-		}
-	}
+	let root = helper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inorderHash);
 
-	root.left = helper(preStart + 1, inStart, rootIndex - 1, preorder, inorder);
-	root.right = helper(preStart + rootIndex - inStart + 1, rootIndex + 1, inEnd, preorder, inorder);
 	return root;
 };
 
-// I really don't understand this too well at the moment. I will look back at this later.
+const helper = function(preorder, preStart, preEnd, inorder, inStart, inEnd, inorderHash) {
+	// Base case.
+	if (preStart > preEnd || inStart > inEnd) return null;
+
+	// In the beginning, root must be preorder[preStart].
+	let root = new TreeNode(preorder[preStart]);
+	// Index of the root in the inorder array.
+	let inRoot = inorderHash[root.val];
+	let numsLeft = inRoot - preStart;
+
+	root.left = helper(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1, inorderHash);
+	root.right = helper(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, inorderHash);
+
+	return root;
+};
+// Not figuring this one out. Not worth spending so much time on. Move on.
