@@ -88,3 +88,41 @@ const findShortestSubArray = function(nums) {
 };
 
 // Doesn't work at the moment, because you have to check the cose from back to front as well. Might update later.
+
+// Updated with actual solution.
+const findShortestSubArray = function(nums) {
+	// Edge case...
+	if (nums.length === 0 || nums === null) return null;
+
+	// Populate a hash with key of number as a string and value as an array which holds the count, start, and end index.
+	let hash = {};
+	nums.forEach((num, index) => {
+		if (hash[num] === undefined) {
+			// Initialize count, start, and end.
+			hash[num] = [ 1, index, index ];
+		} else {
+			hash[num][0] += 1;
+		}
+	});
+
+	for (let key in hash) {
+		console.log(`key ${key} value ${value}`);
+	}
+
+	// Main logic.
+	let degree = -Infinity;
+	let res = Infinity;
+
+	for (let key in hash) {
+		if (hash[key][0] > degree) {
+			degree = hash[key][0];
+			res = hash[key][2] - hash[key][1] + 1;
+		} else if (hash[key][0] === degree) {
+			res = Math.min(res, hash[key][2] - hash[key][1] + 1);
+		}
+	}
+
+	return res;
+};
+
+// Okay, so now it makes a bit more sense. Basically, by keeping the start and end index, you can find the min subarray by taking the difference between the end and start index + 1, because end - start + 1 represents the number of elements between them, inclusive. If the degree updates, then you know that you should just overwrite since only care about largest degree. If the degree is the same, then it's a candidate number since the count is equal to degree, but we aren't sure if it's smaller than the current one, you need to check each time. The res variable just stands for number of elements between the start and end index inclusive.
