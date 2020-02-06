@@ -71,3 +71,86 @@ console.log(
 		[ '0', '0', '0', '0', '0' ]
 	])
 );
+
+// Fresh Start
+const numIslands = function(grid) {
+	// Don't need a hash if I just set all of them to 0.
+	// let hash = {};
+	// for (let i = 0; i < grid.length; i++) {
+	// 	for (let j = 0; j < grid[0].length; j++) {
+	// 		hash[i.toString() + j.toString()] = false;
+	// 	}
+	// }
+	let counter = 0;
+	for (let i = 0; i < grid.length; i++) {
+		for (let j = 0; j < grid[0].length; j++) {
+			if (grid[i][j] === '1') {
+				console.log('found a spot');
+				counter += 1;
+				setZero(i, j, grid);
+			}
+		}
+	}
+
+	return counter;
+};
+
+// Set the neighbors of element at i and j to zero and recursively call until all neighbors are zero.
+const setZero = function(i, j, grid) {
+	grid[i][j] = '0';
+
+	let upValid = false;
+	let downValid = false;
+	let leftValid = false;
+	let rightValid = false;
+
+	if (i - 1 >= 0) upValid = true;
+	if (i + 1 < grid.length) downValid = true;
+	if (j - 1 >= 0) leftValid = true;
+	if (j + 1 < grid[0].length) rightValid = true;
+
+	// End case is if all adjacent are either 0 or undefined.
+	if (
+		(grid[i - 1][j] === '0' || !upValid) &&
+		(grid[i + 1][j] === '0' || !downValid) &&
+		(grid[i][j - 1] === '0' || !leftValid) &&
+		(grid[i][j + 1] === '0' || !rightValid)
+	) {
+		console.log('end case');
+		return;
+	}
+
+	upValid && setZero(i - 1, j, grid);
+	downValid && setZero(i + 1, j, grid);
+	leftValid && setZero(i, j - 1, grid);
+	rightValid && setZero(i, j + 1, grid);
+	// Problem here is that you are setting a copy of the reference but it's only changing the value of the copy.
+};
+
+const numIslands = function(grid) {
+	let count = 0;
+	let n = grid.length;
+	if (n === 0) return 0;
+	let m = grid[0].length;
+	for (let i = 0; i < n; i++) {
+		for (let j = 0; j < m; j++) {
+			if (grid[i][j] === '1') {
+				mark(grid, i, j);
+				count += 1;
+			}
+		}
+	}
+	return count;
+};
+
+const mark = function(grid, i, j) {
+	// End case is actually invalid out of bounds or 0, return.
+	if (i < 0 || j < 0 || i > grid.length - 1 || j > grid[0].length - 1 || grid[i][j] === '0') return;
+	grid[i][j] = '0';
+	mark(grid, i - 1, j);
+	mark(grid, i + 1, j);
+	mark(grid, i, j - 1);
+	mark(grid, i, j + 1);
+};
+
+// Okay, this works. The reason why I was messing up is because my end case was checking all the adjacent pieces. Instead just go to the possibly invalid piece and use that as an end case. Spent too much time on it though.
