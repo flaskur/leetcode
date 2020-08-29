@@ -10,3 +10,5 @@ class Solution:
             if nums[i] != 0:
                 nums[i], nums[slow] = nums[slow], nums[i]
                 slow += 1
+
+# You could have just overwritten if you find nonzero and then filled in the end with zeroes.
