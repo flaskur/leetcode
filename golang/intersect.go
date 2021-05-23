@@ -1,5 +1,3 @@
-package main
-
 // given two integer arrays, return an array of their intersection, the nums that appear in both arrays in any order.
 // populate count hash map for first array, iterate through second and check availability, populate, and reduce count in map.
 func intersect(nums1 []int, nums2 []int) []int {

@@ -1,5 +1,3 @@
-package main
-
 // given an array of integers and target, return indices of two nums such that they sum to target.
 // func twoSum(nums []int, target int) []int {
 // 	for i := 0; i < len(nums)-1; i++ {

@@ -1,5 +1,3 @@
-package main
-
 // given an integer array, move all 0's to the end while maintaining relative order of nonzero elements
 // use two pointer method and swap on nonzero occurrence
 // func moveZeroes(nums []int) {

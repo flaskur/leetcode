@@ -1,5 +1,3 @@
-package main
-
 // create a record hash set and populate with number occurrences. if we encounter existing number in set, remove the index by partitioning.
 // func removeDuplicates(nums []int) int {
 // 	record := map[int]bool{}

@@ -1,5 +1,3 @@
-package main
-
 // given input string as an array of chars, return the reversed string. no extra space done in place.
 func reverseString(s []byte) {
 	i := 0

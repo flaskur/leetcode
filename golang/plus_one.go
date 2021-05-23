@@ -1,5 +1,3 @@
-package main
-
 // given a non empty array of digits, increment 1 to the integer and return as an array.
 // need to keep track of carry and add from end to beginning. also push to front of the array
 func plusOne(digits []int) []int {

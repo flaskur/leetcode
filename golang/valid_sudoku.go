@@ -1,5 +1,3 @@
-package main
-
 // determine if a 9x9 sudoku board is valid.
 func isValidSudoku(board [][]byte) bool {
 	var rows, cols, boxes []map[byte]bool

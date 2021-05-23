@@ -1,5 +1,3 @@
-package main
-
 // given an array, rotate the array to the right by k steps
 // func rotate(nums []int, k int) {
 // 	steps := k % len(nums)
