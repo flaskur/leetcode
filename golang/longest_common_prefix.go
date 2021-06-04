@@ -24,10 +24,6 @@ func longestCommonPrefix(strs []string) string {
 		}
 
 		prefix += string(char)
-
-		if pos == minLen-1 {
-			return prefix
-		}
 	}
 
 	return prefix
