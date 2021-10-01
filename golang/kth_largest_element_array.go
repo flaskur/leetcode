@@ -45,3 +45,37 @@ func helper(x, y []int) []int {
 
 	return result
 }
+
+// quick sort requires you to pass start/end indices
+func quickSort(nums []int, start int, end int) []int {
+	// selects a pivot all less => left all greater => right, then select new pivot
+	// base case
+	if start < end {
+		pi := partition(nums, start, end) // find the partition index
+
+		// repeat until bounds fail
+		quickSort(nums, start, pi-1)
+		quickSort(nums, pi+1, end)
+	}
+
+	return nums
+}
+
+func partition(nums []int, start int, end int) int {
+	pivot := nums[end]
+
+	// i will end at first number greater than pivot
+	i := start
+
+	// j is the runner and will ensure that all nums greater than pivot are [i+1, end-1]
+	for j := start; j < end; j++ {
+		if nums[j] < pivot {
+			nums[i], nums[j] = nums[j], nums[i]
+			i++
+		}
+	}
+
+	// set pivot in correct position
+	nums[i], nums[end] = nums[end], nums[i]
+	return i
+}
