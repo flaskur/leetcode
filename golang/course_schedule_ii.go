@@ -102,7 +102,7 @@ func helper(course int, graph map[int][]int, visit, trip map[int]bool, order *[]
 	// visit all children of node
 	for _, need := range graph[course] {
 		if helper(need, graph, visit, trip, order) {
-			return []int{}
+			return true
 		}
 	}
 
