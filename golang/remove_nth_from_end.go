@@ -34,3 +34,36 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 
 	return head
 }
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	// the trick to this is to use two pointers and delay one pointer by n while the other traverses
+
+	// edge case
+	if head == nil {
+		return nil
+	}
+
+	slow, fast := head, head
+	for i := 0; i < n; i++ {
+		fast = fast.Next
+	}
+
+	if fast == nil {
+		return head.Next
+	}
+
+	for fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next
+	}
+
+	// slow will be node before the one removed
+	if slow.Next.Next == nil {
+		// incase we are removing tail Next.Next is undefined
+		slow.Next = nil
+	} else {
+		slow.Next = slow.Next.Next
+	}
+
+	return head
+}
