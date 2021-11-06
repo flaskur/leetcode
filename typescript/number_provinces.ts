@@ -46,3 +46,30 @@ function union(roots: number[], rank: number[], x: number, y: number) {
 		}
 	}
 }
+
+// dfs
+function findCircleNum(isConnected: number[][]): number {
+	let visit = Array<boolean>(isConnected.length).fill(false)
+	let count = 0
+
+	// for each row, perform dfs for all that are connected to it
+	for (let i = 0; i < isConnected.length; i++) {
+		if (visit[i] == false) {
+			dfs(isConnected, visit, i)
+			count++
+		}
+	}
+
+	return count
+}
+
+function dfs(isConnected: number[][], visit: boolean[], row: number) {
+	visit[row] = true
+
+	// check through all the rows and mark visit
+	for (let col = 0; col < isConnected[row].length; col++) {
+		if (isConnected[row][col] == 1 && visit[col] == false) {
+			dfs(isConnected, visit, col)
+		}
+	}
+}
