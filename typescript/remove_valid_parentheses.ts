@@ -14,7 +14,6 @@ function minRemoveToMakeValid(s: string): string {
 		if (s[i] == ')') right++
 		i++
 	}
-	console.log(s)
 
 	// from right to left
 	left = 0
